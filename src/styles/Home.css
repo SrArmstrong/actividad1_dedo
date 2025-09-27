@@ -1,0 +1,55 @@
+/* Home.css */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f7fafc;
+  color: #2d3748;
+  font-family: sans-serif;
+}
+
+.home-header {
+  background: #2b6cb0;
+  color: white;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-header nav a {
+  margin-left: 16px;
+  color: white;
+  text-decoration: none;
+}
+
+.home-main {
+  flex: 1;
+  padding: 20px;
+}
+
+.home-section {
+  margin-bottom: 24px;
+}
+
+.home-dynamic {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  flex: 1 1 200px;
+}
+
+.home-footer {
+  background: #2c5282;
+  color: white;
+  text-align: center;
+  padding: 12px;
+}

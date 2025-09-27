@@ -1,0 +1,16 @@
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+.splash-logo {
+  width: 96px;
+  height: 96px;
+  animation: float 2.5s ease-in-out infinite;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

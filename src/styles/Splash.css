@@ -1,0 +1,20 @@
+/* Splash.css */
+.splash-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(180deg, #2b6cb0, #2c5282);
+  color: white;
+}
+
+.splash-logo {
+  width: 192px;
+  height: 192px;
+}
+
+.splash-title {
+  margin-top: 16px;
+}
