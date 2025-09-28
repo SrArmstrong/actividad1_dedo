@@ -6,7 +6,6 @@ export default function App(){
   const [showSplash, setShowSplash] = useState(true)
 
   useEffect(() => {
-    // Mostrar splash 2.5s y luego home — ajústalo a lo que quieras
     const t = setTimeout(() => setShowSplash(false), 2500)
     return () => clearTimeout(t)
   }, [])

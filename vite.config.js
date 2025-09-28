@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       manifest: {
-        name: 'Mi PWA',
-        short_name: 'MiPWA',
+        name: 'Reporte de Clima',
+        short_name: 'Clima',
         description: 'Aplicación progresiva ejemplo',
         theme_color: '#2b6cb0',
         background_color: '#ffffff',
