@@ -1,24 +1,26 @@
 import './styles/Home.css';
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from './firebase';
 
 export default function Home() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchUsers() {
+      setLoading(true);
       try {
-        const usersCollection = collection(db, 'USERS');
-        const snapshot = await getDocs(usersCollection);
-        const usersData = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        console.log('Usuarios obtenidos:', usersData);
-        setUsers(usersData);
-      } catch (error) {
-        console.error('Error al obtener usuarios:', error);
+        const response = await fetch('http://localhost:3000/users');
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status}`);
+        }
+        const data = await response.json();
+        setUsers(data);
+      } catch (err) {
+        console.error('Error al obtener usuarios:', err);
+        setError('No se pudieron cargar los usuarios.');
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -29,35 +31,34 @@ export default function Home() {
     <div className="home-container">
       <header className="home-header">
         <h1>Reporte del Clima</h1>
-        <nav>
-          <a href="/">Sign In</a>
-          <a href="/">Sign Up</a>
-          {/*<a href="/about">Acerca</a>*/}
-        </nav>
       </header>
 
       <main className="home-main">
         <section className="home-section">
           <h2>Pantalla principal</h2>
-          {/*<p>Tu contenido aquí.</p>*/}
         </section>
 
-        <section className="home-dynamic">
-          {/* Aquí puedes renderizar contenido dinámico */}
+        <section className="home-dynamic" aria-live="polite">
           <div className="card">
             <h3>Usuarios</h3>
-            {users.length > 0 ? (
+
+            {loading && <p>Cargando usuarios...</p>}
+            {error && <p role="alert">{error}</p>}
+            {!loading && !error && users.length === 0 && (
+              <p>No hay usuarios registrados.</p>
+            )}
+
+            {!loading && !error && users.length > 0 && (
               <ul>
                 {users.map(user => (
                   <li key={user.id}>
-                    <strong>{user.nombre}</strong> — {user.id}
+                    <strong>{user?.nombre ?? 'Sin nombre'}</strong> — {user.id}
                   </li>
                 ))}
               </ul>
-            ) : (
-              <p>Cargando usuarios...</p>
             )}
           </div>
+
           <div className="card">Contenido dinámico 1</div>
           <div className="card">Contenido dinámico 2</div>
         </section>
