@@ -1,4 +1,4 @@
-/* Home.css */
+/* Ya tenías estas clases base, las mantengo */
 .home-container {
   display: flex;
   flex-direction: column;
@@ -52,4 +52,53 @@
   color: white;
   text-align: center;
   padding: 12px;
+}
+
+/* === NUEVOS estilos para la cámara === */
+.camera-buttons {
+  margin-top: 8px;
+}
+
+.camera-buttons button {
+  margin-right: 8px;
+}
+
+.error {
+  color: crimson;
+  margin-top: 8px;
+}
+
+.success {
+  color: green;
+  margin-top: 8px;
+}
+
+.camera-preview {
+  margin-top: 12px;
+}
+
+.video {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 6px;
+  background: #000;
+}
+
+.photo-preview {
+  margin-top: 12px;
+}
+
+.photo {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 6px;
+}
+
+.photo-actions {
+  margin-top: 8px;
+}
+
+.photo-actions button {
+  margin-right: 8px;
 }

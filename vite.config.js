@@ -1,19 +1,21 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    basicSsl(),
     react(),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       manifest: {
-        name: 'Reporte de Clima',
-        short_name: 'Clima',
-        description: 'Aplicación progresiva ejemplo',
-        theme_color: '#2b6cb0',
+        name: 'Registro de Asistencia Académica',
+        short_name: 'Asistencia',
+        description: 'Aplicación progresiva para registrar asistencia en eventos académicos mediante captura de imagen con cámara del dispositivo',
+        theme_color: '#1a202c',
         background_color: '#ffffff',
         display: 'standalone',
         start_url: '/',
@@ -32,14 +34,35 @@ export default defineConfig({
         ]
       },
       workbox: {
-        // opciones de caching, por ejemplo:
         runtimeCaching: [
           {
-            urlPattern: /\/api\//,
+            urlPattern: /\/api\/asistencia/,
             handler: 'NetworkFirst',
-            options: { cacheName: 'api-cache' }
+            options: {
+              cacheName: 'asistencia-api-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 // 1 día
+              }
+            }
+          },
+          {
+            urlPattern: /\/images\/capturas/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'capturas-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 7 // 1 semana
+              }
+            }
           }
         ]
       }
-    })],
+    })
+  ],
+  server: {
+    https: true,
+    host: true
+  }
 })
