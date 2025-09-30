@@ -36,10 +36,11 @@ export default defineConfig({
       workbox: {
         runtimeCaching: [
           {
-            urlPattern: /\/api\/asistencia/,
+            urlPattern: /\/api\/.*/,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'asistencia-api-cache',
+              cacheName: 'api-cache',
+              networkTimeoutSeconds: 3,
               expiration: {
                 maxEntries: 50,
                 maxAgeSeconds: 60 * 60 * 24 // 1 día
@@ -47,17 +48,27 @@ export default defineConfig({
             }
           },
           {
-            urlPattern: /\/images\/capturas/,
-            handler: 'CacheFirst',
+            urlPattern: /\.(js|css|html)$/,
+            handler: 'StaleWhileRevalidate',
             options: {
-              cacheName: 'capturas-cache',
+              cacheName: 'static-resources',
+            }
+          },
+          {
+            urlPattern: /\/users/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'users-cache',
               expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 7 // 1 semana
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 2 // 2 horas
               }
             }
           }
-        ]
+        ],
+        // Agrega esta opción para mejor soporte offline
+        skipWaiting: true,
+        clientsClaim: true
       }
     })
   ],

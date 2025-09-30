@@ -36,6 +36,24 @@ app.get('/users', async (req, res) => {
   }
 });
 
+app.post('/adduser', async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ error: 'Campos requeridos' });
+    }
+
+    const userRef = db.collection('USERS').doc(email);
+    await userRef.set({ name, password });
+
+    res.status(201).json({ message: 'Usuario agregado' });
+  } catch (error) {
+    console.error('Error al añadir usuario:', error);
+    res.status(500).json({ error: 'Error al agregar usuario' });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
